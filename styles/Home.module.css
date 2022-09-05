@@ -1,0 +1,60 @@
+.todo{
+  background-color: white;
+  padding:10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, .25);
+}
+.title,.description{
+  color: black;
+  letter-spacing: 1px;
+}
+.title{
+  font-weight: bold;
+  font-size: 24px;
+}
+.description{
+  font-size: 16px;
+}
+.actions{
+
+}
+.editButton{
+  border: 1px solid;
+  color: blue;
+}
+.deleteButton{
+  border: 1px solid;
+  color: red;
+}
+.editButton,.deleteButton{
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 16px 24px;
+  transition: .1s;
+}
+.editButton:hover,.deleteButton:hover{
+  background-color: #d9d9d9;
+  cursor: pointer;
+}
+.form{
+  padding: 24px;
+  background-color: #d9d9d9;
+}
+.inputForm{
+  margin-bottom: 16px;
+}
+.label,.input{
+  color: #333;
+  letter-spacing: 1px;
+}
+.input{
+  width: 100%;
+  line-height:1.5;
+  padding: 4px;
+  margin-top: 4px;
+  color: red;
+}
+.submit{
+  display: flex;
+  margin-left: auto;
+  padding: 8px 16px;
+}

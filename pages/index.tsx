@@ -12,18 +12,29 @@ const Home: NextPage = () => {
  ]);
   const [purpose, setPurpose] = useState<string>('');
   const [description,setDescription] = useState<string>('');
+  const [editIndex, setEditIndex] = useState<number>(-1);
 
   const formSubmitHandler = (e: FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
-    setTodos([
-      ...todos,
-      {
-        title:purpose,
-        description: description
-      }
-    ]);
+    if (editIndex === -1) {
+      setTodos([
+        ...todos,
+        {
+          title:purpose,
+          description: description
+        }
+      ]);
+      setPurpose('');
+      setDescription('');
+      return;
+    }
+    const tmpTodos = todos;
+    tmpTodos[editIndex].title = purpose;
+    tmpTodos[editIndex].description = description;
+    setTodos(tmpTodos);
     setPurpose('');
     setDescription('');
+    setEditIndex(-1);
   }
 
   const purposeChangeHandler= (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +42,12 @@ const Home: NextPage = () => {
   }
   const descriptionChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>)=>{
     setDescription(e.target.value);
+  }
+
+  const editTodo = (editIndex: number) => {
+    setPurpose(todos[editIndex].title);
+    setDescription(todos[editIndex].description);
+    setEditIndex(editIndex);
   }
 
   const deleteTodo = (deleteIndex:number) =>{
@@ -51,7 +68,7 @@ const Home: NextPage = () => {
       <label className={styles.label}>説明</label>
       <textarea name="" className={styles.input} onChange={descriptionChangeHandler} value={description}></textarea>
       </div>
-      <input type ="submit" className={styles.submit} value="追加"/>
+      <input type ="submit" className={styles.submit} value={editIndex == -1 ? "追加":'更新'}/>
     </form>
       {
         todos.map((todo ,index) => (
@@ -59,8 +76,8 @@ const Home: NextPage = () => {
           <h1 className={styles.title}>{todo.title}</h1>
           <p className={styles.description}>{todo.description}</p>
           <div className={styles.actions}>
-            <button className={styles.editButton}>編集</button>
-            <button onClick ={ () => {deleteTodo(index)}} className={styles.deleteButton}>削除</button>
+            <button onClick={ () => { editTodo(index) }} className={styles.editButton}>編集</button>
+            <button onClick={ () => {deleteTodo(index)}} className={styles.deleteButton}>削除</button>
           </div>
         </article>
         ))
